@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Validator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">JSON Validator</h1>
+        <div class="mb-4">
+            <label for="jsonInput" class="block text-gray-700 text-sm font-bold mb-2">Enter JSON:</label>
+            <textarea id="jsonInput" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        </div>
+        <div class="mb-4">
+            <button id="validateButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Validate</button>
+            <button id="copyButton" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Copy Result</button>
+        </div>
+        <div>
+            <label for="result" class="block text-gray-700 text-sm font-bold mb-2">Result:</label>
+            <textarea id="result" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly></textarea>
+        </div>
+    </div>
+    <script>
+        document.getElementById('validateButton').addEventListener('click', function() {
+            let jsonInput = document.getElementById('jsonInput').value;
+            let resultElement = document.getElementById('result');
+            try {
+                JSON.parse(jsonInput);
+                resultElement.value = 'Valid JSON';
+            } catch (e) {
+                resultElement.value = 'Invalid JSON: ' + e.message;
+            }
+        });
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            let resultElement = document.getElementById('result');
+            resultElement.select();
+            document.execCommand('copy');
+        });
+    </script>
+</body>
+</html>
